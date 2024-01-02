@@ -566,9 +566,13 @@ formatConstraints conf (Tuple cs arr) =
   where
   unicodeArr = case arr.value of
     TokOperator Nothing "<=" | conf.unicode == UnicodeAlways ->
-      arr { value = TokOperator Nothing "⇐" }
+      arr { value = TokOperator Nothing "⫤" }
+    TokOperator Nothing "=|" | conf.unicode == UnicodeAlways ->
+      arr { value = TokOperator Nothing "⫤" }
     TokOperator Nothing "⇐" | conf.unicode == UnicodeNever ->
-      arr { value = TokOperator Nothing "<=" }
+      arr { value = TokOperator Nothing "=|" }
+    TokOperator Nothing "⫤" | conf.unicode == UnicodeNever ->
+      arr { value = TokOperator Nothing "=|" }
     _ ->
       arr
 
